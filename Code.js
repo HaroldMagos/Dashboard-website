@@ -1,4 +1,7 @@
-function doGet() {
- return HtmlService.createHtmlOutputFromFile('Dashboard')
-     .setTitle('Daily Report Dashboard');
-}
+document.getElementById("btnPage1").addEventListener("click", function() {
+    window.location.href = "page1.html";
+});
+
+document.getElementById("btnPage2").addEventListener("click", function() {
+    window.location.href = "page2.html";
+});
