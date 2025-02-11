@@ -3,15 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button Links</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Contact Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #ff6b6b;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #ff4757;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <button id="btnPage1">Go to Page 1</button>
-        <button id="btnPage2">Go to Page 2</button>
+        <h2>Contact Form</h2>
+        <input type="text" id="name" placeholder="Enter Name">
+        <input type="tel" id="phone" placeholder="Enter Phone Number">
+        <button onclick="submitForm()">Submit</button>
+        <p id="message"></p>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function submitForm() {
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            
+            fetch("http://localhost:5000/api/addContact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name, phone })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("message").innerText = data.message;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
 </body>
 </html>
